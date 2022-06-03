@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Oishiness.Models.Platillo>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center mt-3">
+            <h2 class="menuInicio"> Menú</h2>    
+        </div>
+        <div class="col-12 d-flex justify-content-center">
+            <div class="divisor">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        @if (Model.Count()>0)
+        {
+            foreach (var platillo in Model.OrderBy(o => o.Categoria.Id))
+            {
+                <div class="col-sm-12 col-md-5 col-xl-4">
+                    <div class="card text-center" style="width: 18rem; margin:1rem" >
+                      <img src="/@platillo.UrlImagen" class="card-img-top" />
+                      <div class="card-body">
+                        <h5 class="card-title">@platillo.Categoria.Nombre</h5>
+                      </div>
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item">@Html.DisplayNameFor(model => model.Nombre):@platillo.Nombre</li>
+                        <li class="list-group-item">@Html.DisplayNameFor(model => model.Descripcion):@platillo.Descripcion</li>
+                        <li class="list-group-item">@Html.DisplayNameFor(model => model.Precio):@platillo.Precio</li>
+                    
+                      </ul>
+                      <div class="card-body">
+                          <button class="boton-nice">
+                               <a asp-controller="Platillos" asp-action="Details" asp-route-id="@platillo.Id">Ver Detalles</a>
+                          </button>
+                      </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
